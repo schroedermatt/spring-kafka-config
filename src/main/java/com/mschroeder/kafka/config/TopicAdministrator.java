@@ -1,6 +1,7 @@
 package com.mschroeder.kafka.config;
 
 import com.mschroeder.kafka.config.TopicConfigurations.TopicConfiguration;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.GenericWebApplicationContext;
@@ -16,6 +17,7 @@ import java.util.List;
  * so that when the KafkaAdmin.initialize() method fires, the beans are
  * picked up and configured in the cluster.
  */
+@Slf4j
 @Configuration
 public class TopicAdministrator {
 	private final TopicConfigurations configurations;
@@ -44,6 +46,15 @@ public class TopicAdministrator {
 	 * @param topics TopicConfigurations object
 	 */
 	private void initializeBeans(List<TopicConfiguration> topics) {
-		topics.forEach(t -> context.registerBean(t.getName(), NewTopic.class, t::toNewTopic));
+		log.info("Configuring {} topics", topics.size());
+		topics.forEach(t -> {
+			log.info(
+					"topic={},numPartitions={},replicationFactor={}",
+					t.getName(),
+					t.getNumPartitions(),
+					t.getReplicationFactor()
+			);
+			context.registerBean(t.getName(), NewTopic.class, t::toNewTopic);
+		});
 	}
 }
