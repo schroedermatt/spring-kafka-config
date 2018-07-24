@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    bootstrap-servers: ${spring.embedded.kafka.brokers}
+
+---
+
+spring:
+  profiles: topics
+
+kafka:
+  topics:
+    -
+      name: test-topic-1
+      num-partitions: 10
+      replication-factor: 1
+    -
+      name: test-topic-2
+      num-partitions: 5
+      replication-factor: 1

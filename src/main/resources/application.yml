@@ -1,0 +1,14 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+
+kafka:
+  topics:
+    -
+      name: testing-auto-setup
+      num-partitions: 5
+      replication-factor: 1
+    -
+      name: another-test
+      num-partitions: 3
+      replication-factor: 1

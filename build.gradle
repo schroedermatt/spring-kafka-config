@@ -1,0 +1,38 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.mschroeder.kafka'
+version = '0.0.1'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	compile "org.springframework.kafka:spring-kafka:${springKafkaVersion}"
+	compile "javax.validation:validation-api:${javaxValidationVersion}"
+
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	compileOnly "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
+
+	testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+	testCompile("org.spockframework:spock-core:${spockCoreVersion}")
+	testCompile("org.spockframework:spock-spring:${spockCoreVersion}")
+	testCompile "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
+}
